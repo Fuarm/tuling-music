@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>io.longtu</groupId>
-    <artifactId>cloud_music</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>cloud_music</name>
-    <description>cloud_music</description>
+    <artifactId>tuling-music</artifactId>
+    <version>0.0.1</version>
+    <name>tuling-music</name>
+    <description>tuling-music</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>
