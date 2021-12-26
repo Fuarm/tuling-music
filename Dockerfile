@@ -11,14 +11,11 @@ COPY src /app/src
 # 将pom.xml文件，拷贝到工作目录下
 COPY pom.xml /app
 
-# 执行代码编译命令
-RUN mvn -f /app/pom.xml clean package -Dspring.profiles.active=prod
+# 将.env.prod文件，拷贝到工作目录下
+COPY .env.prod /app
 
-# 环境变量
-ENV MYSQL_HOST 10.0.224.11
-ENV MYSQL_USER_NAME root
-ENV MYSQL_PASSWORD root@mysql5.7
-ENV DATABASE_NAME tuling-music
+# 执行代码编译命令
+RUN mvn -f /app/pom.xml clean package
 
 # 选择运行时基础镜像
 FROM alpine:3.13
@@ -37,4 +34,4 @@ COPY --from=build /app/target/tuling-music-0.0.1.jar .
 EXPOSE 80
 
 # 执行启动命令
-CMD ["java", "-jar", "/app/tuling-music-0.0.1.jar"]
+CMD ["java", "-jar", "/app/tuling-music-0.0.1.jar", "--spring.profiles.active=prod"]
