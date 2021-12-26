@@ -12,14 +12,14 @@ COPY src /app/src
 COPY pom.xml /app
 
 # 执行代码编译命令
-RUN mvn -f /app/pom.xml clean package
+RUN mvn -f /app/pom.xml clean package -D spring.profiles.active=prod
 
 # 环境变量
-ENV SERVER_PORT 80
-ENV MYSQL_HOST 10.0.224.11
-ENV MYSQL_USER_NAME root
-ENV MYSQL_PASSWORD root@mysql5.7
-ENV DATABASE_NAME tuling-music
+# ENV SERVER_PORT 80
+# ENV MYSQL_HOST 10.0.224.11
+# ENV MYSQL_USER_NAME root
+# ENV MYSQL_PASSWORD root@mysql5.7
+# ENV DATABASE_NAME tuling-music
 
 # 选择运行时基础镜像
 FROM alpine:3.13
