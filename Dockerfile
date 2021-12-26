@@ -15,7 +15,7 @@ COPY pom.xml /app
 COPY .env.prod /app
 
 # 执行代码编译命令
-RUN mvn -f /app/pom.xml clean package
+RUN mvn -f /app/pom.xml clean package -D spring.profiles.active=prod
 
 # 选择运行时基础镜像
 FROM alpine:3.13
