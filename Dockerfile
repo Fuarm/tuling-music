@@ -15,7 +15,6 @@ COPY pom.xml /app
 RUN mvn -f /app/pom.xml clean package -Dspring.profiles.active=prod
 
 # 环境变量
-ENV SERVER_PORT 80
 ENV MYSQL_HOST 10.0.224.11
 ENV MYSQL_USER_NAME root
 ENV MYSQL_PASSWORD root@mysql5.7
