@@ -8,7 +8,7 @@
   "policyThreshold": 60,
   "envParams": {},
   "customLogs": "stdout",
-  "dataBaseName":"springboot_demo",
+  "dataBaseName":"tuling-music",
   "executeSQLs":[
     "CREATE DATABASE IF NOT EXISTS tuling-music;"
   ]
