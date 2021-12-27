@@ -11,8 +11,12 @@ COPY src /app/src
 # 将pom.xml文件，拷贝到工作目录下
 COPY pom.xml /app
 
+# 将.env.prod文件，拷贝到工作目录下
+COPY .env.prod /app
+COPY .env.prod /app/target
+
 # 执行代码编译命令
-RUN mvn -f /app/pom.xml -Dspring.profiles.active=prod
+RUN mvn -f /app/pom.xml clean package -P prod
 
 # 选择运行时基础镜像
 FROM alpine:3.13
