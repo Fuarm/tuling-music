@@ -20,19 +20,14 @@ RUN mvn -f /app/pom.xml clean package -P prod
 # 选择运行时基础镜像
 FROM alpine:3.13
 
-# 环境变量
-ENV MYSQL_HOST 10.0.224.15
-ENV MYSQL_USER_NAME root
-ENV MYSQL_PASSWORD root@mysql5.7
-ENV DATABASE_NAME tuling-music
-ENV APPLICATION_PORT 80
-
 # 安装依赖包，如需其他依赖包，请到alpine依赖包管理(https://pkgs.alpinelinux.org/packages?name=php8*imagick*&branch=v3.13)查找。
 RUN apk add --update --no-cache openjdk8-jre-base \
     && rm -f /var/cache/apk/*
 
 # 指定运行时的工作目录
 WORKDIR /app
+
+COPY .env.prod /app/target
 
 # 将构建产物jar包拷贝到运行时目录中
 COPY --from=build /app/target/tuling-music-0.0.1.jar .
