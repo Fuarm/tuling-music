@@ -15,7 +15,7 @@ COPY pom.xml /app
 COPY .env.prod /app
 
 # 执行代码编译命令
-RUN mvn -f /app/pom.xml clean package -D spring.profiles.active=prod
+RUN mvn -f /app/pom.xml clean package -P prod
 
 # 选择运行时基础镜像
 FROM alpine:3.13
@@ -34,4 +34,4 @@ COPY --from=build /app/target/tuling-music-0.0.1.jar .
 EXPOSE 80
 
 # 执行启动命令
-CMD ["java", "-jar", "/app/tuling-music-0.0.1.jar", "--spring.profiles.active=prod"]
+CMD ["java", "-jar", "/app/tuling-music-0.0.1.jar"]
