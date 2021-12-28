@@ -4,6 +4,12 @@
 
 使用微信提供的云服务，需要配置 Dockerfile 和  container.config.json
 
+> Dokcerfile 配置使用 spring.config.import 引入的文件：
+>
+> 1、Docker 中分为*构建*和*运行*两种环境
+> 
+> 2、需要在构建运行镜像后 COPY 文件到 `/app`目录
+
 ### 2、mysql 数据库 配置
 
 spring boot 的 application.properties 配置
@@ -40,4 +46,5 @@ Entity Class 中添加 @Data（class） 和 @Id（属性） 注解
 ```
 
 ### 7. Spring DataJPA
+
 
