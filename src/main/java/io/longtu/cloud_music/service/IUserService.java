@@ -1,10 +1,19 @@
 package io.longtu.cloud_music.service;
 
-import io.longtu.cloud_music.dto.UserDto;
+import io.longtu.cloud_music.model.dto.UserCreateDto;
+import io.longtu.cloud_music.model.dto.UserDto;
+import io.longtu.cloud_music.model.dto.UserUpdateDto;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
 
-public interface IUserService {
+public interface IUserService extends UserDetailsService {
 
-    List<UserDto> list();
+    UserDto create(UserCreateDto userCreateDto);
+
+    UserDto get(String id);
+
+    UserDto update(String id, UserUpdateDto userUpdateDto);
+
+    void delete(String id);
 }

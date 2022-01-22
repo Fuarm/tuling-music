@@ -1,4 +1,4 @@
-package io.longtu.cloud_music.dto;
+package io.longtu.cloud_music.model.dto;
 
 import lombok.Data;
 

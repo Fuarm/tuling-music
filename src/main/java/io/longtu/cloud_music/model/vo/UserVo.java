@@ -1,12 +1,11 @@
-package io.longtu.cloud_music.dto;
+package io.longtu.cloud_music.model.vo;
 
-import io.longtu.cloud_music.vo.RoleVo;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-public class UserDto {
+public class UserVo {
 
     private String id;
 
