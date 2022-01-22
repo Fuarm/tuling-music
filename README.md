@@ -29,6 +29,11 @@ fi
 ```
 
 ### 4、 flyway 库：db 执行库
+> ***注意：***
+> 
+> 1、flyway 7 社区版仅**支持** mysql8.* 版本
+>
+> 2、flyway 5.2.* 社区版支持 mysql5.7
 
 ### 5、lombok 库： Entity Class get/set 自动生成
 
@@ -36,8 +41,6 @@ Entity Class 中添加 @Data（class） 和 @Id（属性） 注解
 
 ### 6、 ksuid 生成器
 ```xml
-# 依赖
-
 <dependency>
     <groupId>com.github.ksuid</groupId>
     <artifactId>ksuid</artifactId>
@@ -47,4 +50,16 @@ Entity Class 中添加 @Data（class） 和 @Id（属性） 注解
 
 ### 7. Spring DataJPA
 
+### 8. JWT 鉴权
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-security</artifactId>
+</dependency>
+<dependency>
+    <groupId>com.auth0</groupId>
+    <artifactId>java-jwt</artifactId>
+    <version>3.18.2</version>
+</dependency>
+```
 

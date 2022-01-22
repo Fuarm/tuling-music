@@ -1,4 +1,4 @@
-package io.longtu.cloud_music.entity;
+package io.longtu.cloud_music.model.entity;
 
 import lombok.Data;
 
