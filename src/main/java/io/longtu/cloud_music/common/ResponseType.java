@@ -8,10 +8,14 @@ public enum ResponseType {
     SUCCESS(200, "请求成功"),
     BAD_REQUEST(400, "请求错误"),
     USER_NOT_EXIST(400100, "用户不存在"),
+    USER_NAME_DUPLICATE(4000101, "用户名不可用"),
+    USER_PASSWORD_NOT_MATCH(4000102, "用户名或密码错误"),
     UNAUTHORIZED(401, "未登录"),
     FORBIDDEN(403, "无权限"),
     NOT_FOUND(404, "未找到"),
-    INTERNAL_SERVER_ERROR(500, "系统错误");
+    INTERNAL_SERVER_ERROR(500, "系统错误"),
+    USER_NOT_ENABLED(500101, "用户未启用"),
+    USER_LOCKED(500102, "用户被锁定");
 
     private final Integer code;
 
