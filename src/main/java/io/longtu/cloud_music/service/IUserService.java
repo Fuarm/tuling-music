@@ -5,8 +5,6 @@ import io.longtu.cloud_music.model.dto.UserDto;
 import io.longtu.cloud_music.model.dto.UserUpdateDto;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
-import java.util.List;
-
 public interface IUserService extends UserDetailsService {
 
     UserDto create(UserCreateDto userCreateDto);
@@ -16,4 +14,6 @@ public interface IUserService extends UserDetailsService {
     UserDto update(String id, UserUpdateDto userUpdateDto);
 
     void delete(String id);
+
+    UserDto getCurrentUser();
 }

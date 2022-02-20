@@ -10,6 +10,8 @@ import io.longtu.cloud_music.mapper.IUserMapper;
 import io.longtu.cloud_music.repository.IUserRepository;
 import io.longtu.cloud_music.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -27,7 +29,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public UserDto create(UserCreateDto userCreateDto) {
-        getUserByUsername(userCreateDto.getUsername());
+        checkIsAvailableByUsername(userCreateDto.getUsername());
         User user = userMapper.createEntity(userCreateDto);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userMapper.toDto(repository.save(user));
@@ -51,22 +53,36 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
+    public UserDto getCurrentUser() {
+        return userMapper.toDto(loadUserByUsername(
+                SecurityContextHolder.getContext().getAuthentication().getName()
+        ));
+    }
+
+
+    @Override
     public User loadUserByUsername(String username) throws UsernameNotFoundException {
         return getUserByUsername(username);
     }
 
+    private void checkIsAvailableByUsername(String username) {
+        Optional<User> user = repository.findByUsername(username);
+        if (user.isPresent()) {
+            throw new BizException(ResponseType.USER_NAME_DUPLICATE);
+        }
+    }
+
     private User getUserById(String id) {
         Optional<User> user = repository.findById(id);
-        // TODO: 重构
-        if (!user.isPresent()) {
-            throw new BizException(ResponseType.USER_NOT_EXIST);
-        }
-        return user.get();
+        return getUserByOptional(user);
     }
 
     private User getUserByUsername(String username) {
         Optional<User> user = repository.findByUsername(username);
-        // TODO: 重构
+        return getUserByOptional(user);
+    }
+
+    private User getUserByOptional(Optional<User> user) {
         if (!user.isPresent()) {
             throw new BizException(ResponseType.USER_NOT_EXIST);
         }

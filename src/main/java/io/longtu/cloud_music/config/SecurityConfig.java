@@ -1,12 +1,10 @@
 package io.longtu.cloud_music.config;
 
-import io.longtu.cloud_music.filter.JwtAuthenticationFilter;
 import io.longtu.cloud_music.filter.JwtAuthorizationFilter;
 import io.longtu.cloud_music.service.IUserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -29,7 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     public static final String HEADER_STRING = "Authorization";
 
-    public static final String CREATE_TOKEN_URL = "/tokens";
+    public static final String CREATE_TOKEN_URL = "/token";
 
     IUserService userService;
 
@@ -40,7 +38,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(CREATE_TOKEN_URL).permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .addFilter(new JwtAuthenticationFilter(authenticationManager()))
                 .addFilter(new JwtAuthorizationFilter(authenticationManager()))
                 .exceptionHandling()
                 .and()
@@ -54,7 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/webjars/**")
                 .antMatchers("/v3/**")
                 .antMatchers("/doc.html")
-                .antMatchers("/weixin/**");
+                .antMatchers("/wechat/**");
     }
 
     @Override

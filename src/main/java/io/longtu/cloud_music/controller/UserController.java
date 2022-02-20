@@ -23,8 +23,8 @@ public class UserController {
     IUserMapper userMapper;
 
     @ApiOperation("创建用户")
-    @PostMapping("/")
-    ServerResponse<UserVo> create(@Validated @RequestBody UserCreateDto userCreateDto) {
+    @PostMapping()
+    public ServerResponse<UserVo> create(@Validated @RequestBody UserCreateDto userCreateDto) {
         return ServerResponse.createBySuccess(
                 "创建用户：ok",
                 userMapper.toVo(userService.create(userCreateDto))
@@ -33,7 +33,7 @@ public class UserController {
 
     @ApiOperation("获取用户信息")
     @GetMapping("/{id}")
-    ServerResponse<UserVo> get(@PathVariable String id) {
+    public ServerResponse<UserVo> get(@PathVariable String id) {
         return ServerResponse.createBySuccess(
                 "获取用户信息：ok",
                 userMapper.toVo(userService.get(id))
@@ -42,7 +42,7 @@ public class UserController {
 
     @ApiOperation("更新用户信息")
     @PutMapping("/{id}")
-    ServerResponse<UserVo> update(@PathVariable String id,
+    public ServerResponse<UserVo> update(@PathVariable String id,
                                   @Validated @RequestBody UserUpdateDto userUpdateDto) {
         return ServerResponse.createBySuccess(
                 "更新用户信息：ok",
@@ -52,9 +52,18 @@ public class UserController {
 
     @ApiOperation("删除用户")
     @DeleteMapping("/{id}")
-    ServerResponse delete(@PathVariable String id) {
+    public ServerResponse delete(@PathVariable String id) {
         userService.delete(id);
         return ServerResponse.createBySuccessMessage("删除用户：ok");
+    }
+
+    @ApiOperation("获取当前登录用户信息")
+    @GetMapping("/me")
+    public ServerResponse<UserVo> me() {
+        return ServerResponse.createBySuccess(
+                "获取信息：ok",
+                userMapper.toVo(userService.getCurrentUser())
+        );
     }
 
     @Autowired
