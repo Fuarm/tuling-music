@@ -3,6 +3,8 @@ package io.longtu.cloud_music.filter;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import io.longtu.cloud_music.config.SecurityConfig;
+import io.longtu.cloud_music.model.entity.User;
+import io.longtu.cloud_music.service.IUserService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,12 +15,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
-    public JwtAuthorizationFilter(AuthenticationManager authenticationManager) {
+    IUserService userService;
+
+    public JwtAuthorizationFilter(AuthenticationManager authenticationManager, IUserService userService) {
         super(authenticationManager);
+        this.userService = userService;
     }
 
     @Override
@@ -32,14 +36,13 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     }
 
     private UsernamePasswordAuthenticationToken getAuthentication(String token) {
-        if (token != null) {
-            String username = JWT.require(Algorithm.HMAC512(SecurityConfig.SECRET_KEY.getBytes()))
-                    .build()
-                    .verify(token.replace(SecurityConfig.TOKEN_PREFIX, ""))
-                    .getSubject();
-            if (username != null) {
-                return new UsernamePasswordAuthenticationToken(username, null, new ArrayList<>());
-            }
+        String username = JWT.require(Algorithm.HMAC512(SecurityConfig.SECRET_KEY.getBytes()))
+                .build()
+                .verify(token.replace(SecurityConfig.TOKEN_PREFIX, ""))
+                .getSubject();
+        if (username != null) {
+            User user = userService.loadUserByUsername(username);
+            return new UsernamePasswordAuthenticationToken(username, null, user.getAuthorities());
         }
         return null;
     }
