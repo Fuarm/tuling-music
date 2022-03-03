@@ -10,9 +10,9 @@ import io.longtu.cloud_music.mapper.IUserMapper;
 import io.longtu.cloud_music.repository.IUserRepository;
 import io.longtu.cloud_music.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +26,11 @@ public class UserServiceImpl implements IUserService {
     IUserMapper userMapper;
 
     PasswordEncoder passwordEncoder;
+
+    @Override
+    public Page<UserDto> search(Pageable pageable) {
+        return repository.findAll(pageable).map(userMapper::toDto);
+    }
 
     @Override
     public UserDto create(UserCreateDto userCreateDto) {
@@ -59,9 +64,8 @@ public class UserServiceImpl implements IUserService {
         ));
     }
 
-
     @Override
-    public User loadUserByUsername(String username) throws UsernameNotFoundException {
+    public User loadUserByUsername(String username) {
         return getUserByUsername(username);
     }
 

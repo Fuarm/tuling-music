@@ -1,5 +1,6 @@
 package io.longtu.cloud_music.config;
 
+import io.longtu.cloud_music.exception.RestAuthenticationEntryPoint;
 import io.longtu.cloud_music.filter.JwtAuthorizationFilter;
 import io.longtu.cloud_music.service.IUserService;
 
@@ -16,7 +17,10 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(
-        prePostEnabled = true)
+        prePostEnabled = true,
+        securedEnabled = true,
+        jsr250Enabled = true
+)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     public static final String SECRET_KEY = "tu ling music";
@@ -31,6 +35,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     IUserService userService;
 
+    RestAuthenticationEntryPoint restAuthenticationEntryPoint;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
@@ -38,8 +44,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(CREATE_TOKEN_URL).permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .addFilter(new JwtAuthorizationFilter(authenticationManager()))
+                .addFilter(new JwtAuthorizationFilter(authenticationManager(), userService))
                 .exceptionHandling()
+                .authenticationEntryPoint(restAuthenticationEntryPoint)
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -62,5 +69,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void setUserService(IUserService userService) {
         this.userService = userService;
+    }
+
+    @Autowired
+    public void setRestAuthenticationEntryPoint(RestAuthenticationEntryPoint restAuthenticationEntryPoint) {
+        this.restAuthenticationEntryPoint = restAuthenticationEntryPoint;
     }
 }

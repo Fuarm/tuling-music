@@ -18,8 +18,8 @@ public class TokenController {
 
     ITokenService tokenService;
 
-    @ApiOperation("创建 Token")
     @PostMapping()
+    @ApiOperation("创建 Token")
     public ServerResponse<String> create(@RequestBody TokenCreateDto tokenCreateDto) {
         return ServerResponse.createBySuccess(
                 "创建Token：ok",
