@@ -50,7 +50,7 @@ public class SwaggerConfig {
         return new ApiInfoBuilder()
                 .title("图灵音乐Swagger3接口文档")
                 .description("更多请咨询服务开发者Aufk。")
-                .contact(new Contact("aufk", "https://www.baidu.com", "aufk@foxmail.com"))
+                .contact(new Contact("aufk", "https://github.com/GouFuJun/tuling-music", "aufk@foxmail.com"))
                 .version("1.0.0")
                 .build();
     }

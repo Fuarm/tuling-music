@@ -63,3 +63,17 @@ Entity Class 中添加 @Data（class） 和 @Id（属性） 注解
 </dependency>
 ```
 
+### 9. 全局异常统一处理
+
+借助 @RestController 和 @RestControllerAdvice 注解实现controller层全局异常捕获处理
+
+### 10. Swagger
+
+```xml
+<!--   Swagger     -->
+<dependency>
+    <groupId>io.springfox</groupId>
+    <artifactId>springfox-boot-starter</artifactId>
+    <version>3.0.0</version>
+</dependency>
+```
