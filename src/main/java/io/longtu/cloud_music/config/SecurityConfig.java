@@ -23,6 +23,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 )
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    public static final String SECRET_KEY = "music";
+
     public static final long EXPIRATION_TIME = 10 * 24 * 3600 * 1000;
 
     public static final String TOKEN_PREFIX = "token__";

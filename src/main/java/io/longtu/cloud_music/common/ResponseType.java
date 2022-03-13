@@ -15,7 +15,8 @@ public enum ResponseType {
     NOT_FOUND(404, "未找到"),
     INTERNAL_SERVER_ERROR(500, "系统错误"),
     USER_NOT_ENABLED(500101, "用户未启用"),
-    USER_LOCKED(500102, "用户被锁定");
+    USER_LOCKED(500102, "用户被锁定"),
+    WECHAT_ERROR(500201, "获取微信系统信息失败");
 
     private final Integer code;
 
