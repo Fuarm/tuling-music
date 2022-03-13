@@ -28,7 +28,7 @@ WORKDIR /app
 COPY --from=build /app/target/tuling-music-0.0.1.jar .
 
 # 将.env.prod文件，拷贝到工作目录下
-COPY .env.prod /app
+COPY .env .env.prod /app/
 
 # 暴露端口
 EXPOSE 80
