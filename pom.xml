@@ -116,6 +116,7 @@
             <artifactId>java-jwt</artifactId>
             <version>3.18.2</version>
         </dependency>
+
         <!--   Swagger     -->
         <dependency>
             <groupId>io.springfox</groupId>
@@ -126,6 +127,13 @@
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
             <version>5.7.19</version>
+        </dependency>
+
+        <!--   WeChat     -->
+        <dependency>
+            <groupId>com.github.binarywang</groupId>
+            <artifactId>weixin-java-mp</artifactId>
+            <version>4.2.0</version>
         </dependency>
     </dependencies>
 
